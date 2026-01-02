@@ -27,5 +27,70 @@ Window {
         onValueChanged: {
             console.log("SpinBox value: ", mySpinBox.value)
         }
+
+        contentItem: TextInput {
+            text: mySpinBox.textFromValue(mySpinBox.value, mySpinBox.locale)
+            font.pointSize: 15
+            font.bold: true
+
+            color: "black"
+            selectionColor: "blue"
+            selectedTextColor: "white"
+            horizontalAlignment: Qt.AlignHCenter
+            verticalAlignment: Qt.AlignVCenter
+            validator: mySpinBox.validator
+        }
+
+        up.indicator: Rectangle {
+            implicitHeight: 40
+            implicitWidth: 40
+
+            x: mySpinBox.mirrored ? 0 : ((parent.width - width) - 5)
+            y: ((parent.height - height) / 2)
+
+            radius: 20
+            color: mySpinBox.up.pressed ? "grey" : "white"
+
+            border.width: 3
+            border.color: "black"
+
+            Text {
+                text: "+"
+                color: "black"
+                anchors.fill: parent
+                fontSizeMode: Text.Fit
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+        }
+
+        down.indicator: Rectangle {
+            implicitHeight: 40
+            implicitWidth: 40
+
+            x: mySpinBox.mirrored ? (parent.width - width) : 5
+            y: ((parent.height - height) / 2)
+
+            radius: 20
+            color: mySpinBox.down.pressed ? "grey" : "white"
+
+            border.width: 3
+            border.color: "black"
+
+            Text {
+                text: "-"
+                color: "black"
+                anchors.fill: parent
+                fontSizeMode: Text.Fit
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+        }
+
+        background: Rectangle {
+            border.width: 3
+            border.color: "grey"
+            radius: 25
+        }
     }
 }
