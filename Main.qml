@@ -8,105 +8,24 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    Row {
+    SpinBox {
+        id: mySpinBox
         anchors.centerIn: parent
-        spacing: 30
+        from: 0
+        to: 100
 
-        RadioButton
-        {
-            id: myRadioButton_1
-            text: "Option 1"
-            font.pointSize: 20
-            font.bold: true
-            height: 60
-            background: Rectangle {
-                border.width: 3
-                border.color: "#ff0000"
-                radius: 5
-            }
-            indicator: Rectangle {
-                id: myRadioButton_1_indicator
-                implicitHeight: 40
-                implicitWidth: 40
-                radius: width / 2
-                x: 10
-                y: ((myRadioButton_1.height - myRadioButton_1_indicator.height) / 2)
+        stepSize: 10
+        editable: true
+        width: 200
+        height: 50
 
-                color: myRadioButton_1.checked ? "green" : "white"
-                border.color: "black"
-                border.width: 2
-                anchors.margins: 5
-
-            }
-
-            onCheckedChanged: {
-                console.log("Option 1")
-            }
+        validator: IntValidator {
+            bottom: mySpinBox.from
+            top: mySpinBox.to
         }
 
-        RadioButton
-        {
-            id: myRadioButton_2
-            text: "Option 2"
-            font.pointSize: 20
-            font.bold: true
-            height: 60
-            background: Rectangle {
-                border.width: 3
-                border.color: "#ff0000"
-                radius: 5
-            }
-            indicator: Rectangle {
-                id: myRadioButton_2_indicator
-                implicitHeight: 40
-                implicitWidth: 40
-                radius: width / 2
-                x: 10
-                y: ((myRadioButton_1.height - myRadioButton_1_indicator.height) / 2)
-
-                color: myRadioButton_1.checked ? "green" : "white"
-                border.color: "black"
-                border.width: 2
-                anchors.margins: 5
-
-            }
-
-            onCheckedChanged: {
-                console.log("Option 2")
-            }
-        }
-
-        RadioButton
-        {
-            id: myRadioButton_3
-            text: "Option 3"
-            font.pointSize: 20
-            font.bold: true
-            height: 60
-            background: Rectangle {
-                border.width: 3
-                border.color: "#ff0000"
-                radius: 5
-            }
-
-            indicator: Rectangle {
-                id: myRadioButton_3_indicator
-                implicitHeight: 40
-                implicitWidth: 40
-                radius: width / 2
-                x: 10
-                y: ((myRadioButton_1.height - myRadioButton_1_indicator.height) / 2)
-
-                color: myRadioButton_1.checked ? "green" : "white"
-                border.color: "black"
-                border.width: 2
-                anchors.margins: 5
-
-            }
-
-            onCheckedChanged: {
-                console.log("Option 3")
-            }
+        onValueChanged: {
+            console.log("SpinBox value: ", mySpinBox.value)
         }
     }
 }
