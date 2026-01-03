@@ -8,89 +8,44 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    SpinBox {
-        id: mySpinBox
-        anchors.centerIn: parent
-        from: 0
-        to: 100
+    Switch {
+        id: mySwitch
+        text: qsTr("Switch")
 
-        stepSize: 10
-        editable: true
-        width: 200
-        height: 50
+        indicator: Rectangle {
+            implicitHeight: 25
+            implicitWidth: 50
 
-        validator: IntValidator {
-            bottom: mySpinBox.from
-            top: mySpinBox.to
-        }
+            x: mySwitch.leftPadding
+            y: parent.height / 2 - height / 2
 
-        onValueChanged: {
-            console.log("SpinBox value: ", mySpinBox.value)
-        }
+            radius: 15
+            color: mySwitch.checked ? "green" : "black"
+            border.color: mySwitch.checked ? "black" : "green"
 
-        contentItem: TextInput {
-            text: mySpinBox.textFromValue(mySpinBox.value, mySpinBox.locale)
-            font.pointSize: 15
-            font.bold: true
+            Rectangle {
+                x: mySwitch.checked ? parent.width - width : 0
 
-            color: "black"
-            selectionColor: "blue"
-            selectedTextColor: "white"
-            horizontalAlignment: Qt.AlignHCenter
-            verticalAlignment: Qt.AlignVCenter
-            validator: mySpinBox.validator
-        }
+                radius: 15
+                width: 25
+                height: 25
 
-        up.indicator: Rectangle {
-            implicitHeight: 40
-            implicitWidth: 40
-
-            x: mySpinBox.mirrored ? 0 : ((parent.width - width) - 5)
-            y: ((parent.height - height) / 2)
-
-            radius: 20
-            color: mySpinBox.up.pressed ? "grey" : "white"
-
-            border.width: 3
-            border.color: "black"
-
-            Text {
-                text: "+"
-                color: "black"
-                anchors.fill: parent
-                fontSizeMode: Text.Fit
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+                color: mySwitch.down ? "red" : "yellow"
+                border.color: mySwitch.checked ? (mySwitch.down ? "black" : "green") : "white"
             }
         }
 
-        down.indicator: Rectangle {
-            implicitHeight: 40
-            implicitWidth: 40
+        contentItem: Text {
+            text: mySwitch.text
+            font: mySwitch.font
+            color: mySwitch.down ? "black" : "grey"
 
-            x: mySpinBox.mirrored ? (parent.width - width) : 5
-            y: ((parent.height - height) / 2)
-
-            radius: 20
-            color: mySpinBox.down.pressed ? "grey" : "white"
-
-            border.width: 3
-            border.color: "black"
-
-            Text {
-                text: "-"
-                color: "black"
-                anchors.fill: parent
-                fontSizeMode: Text.Fit
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
+            verticalAlignment: Text.AlignVCenter
+            leftPadding: mySwitch.indicator.width + mySwitch.spacing
         }
 
-        background: Rectangle {
-            border.width: 3
-            border.color: "grey"
-            radius: 25
+        onCheckedChanged: {
+            console.log("Switch is on : ", checked)
         }
     }
 }
