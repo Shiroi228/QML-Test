@@ -8,44 +8,60 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    Switch {
-        id: mySwitch
-        text: qsTr("Switch")
+    Column {
+        spacing: 20
+        anchors.centerIn: parent
+        width: 640
 
-        indicator: Rectangle {
-            implicitHeight: 25
-            implicitWidth: 50
+        Slider {
+            id: mySlider
+            width: parent.width * 0.8
+            from: 0
+            to: 1000
+            stepSize: 1
+            anchors.centerIn: parent
 
-            x: mySwitch.leftPadding
-            y: parent.height / 2 - height / 2
+            onValueChanged: {
+                console.log("Slider value : ", mySlider.value)
+            }
 
-            radius: 15
-            color: mySwitch.checked ? "green" : "black"
-            border.color: mySwitch.checked ? "black" : "green"
+            background: Rectangle {
+                x: mySlider.leftPadding
+                y: mySlider.topPadding + mySlider.availableHeight / 2 - height / 2
+                implicitWidth: 200
+                implicitHeight: 20
+                width: mySlider.availableWidth
+                height: implicitHeight
+                radius: height / 2
+                color: "#0abeed"
 
-            Rectangle {
-                x: mySwitch.checked ? parent.width - width : 0
+                Rectangle {
+                    width: mySlider.visualPosition == 0 ? 0 : mySlider.handle.x + mySlider.handle.width / 2
+                    height: parent.height
+                    color: "#343434"
+                    radius: height / 2
+                }
+            }
 
-                radius: 15
-                width: 25
-                height: 25
+            handle: Rectangle {
+                x: mySlider.leftPadding + mySlider.visualPosition * (mySlider.availableWidth - width)
+                y: mySlider.topPadding + mySlider.availableHeight / 2 - height / 2
+                implicitHeight: 25
+                implicitWidth: 25
 
-                color: mySwitch.down ? "red" : "yellow"
-                border.color: mySwitch.checked ? (mySwitch.down ? "black" : "green") : "white"
+                radius: implicitWidth / 2
+                color: mySlider.pressed ? "green" : "white"
+                border.color: red
+                border.width: 2
+
             }
         }
 
-        contentItem: Text {
-            text: mySwitch.text
-            font: mySwitch.font
-            color: mySwitch.down ? "black" : "grey"
-
-            verticalAlignment: Text.AlignVCenter
-            leftPadding: mySwitch.indicator.width + mySwitch.spacing
-        }
-
-        onCheckedChanged: {
-            console.log("Switch is on : ", checked)
+        Text {
+            id: myText
+            text: "Slider value : " + mySlider.value
+            anchors.top: mySlider.bottom
+            anchors.horizontalCenter: mySlider.horizontalCenter
         }
     }
 }
