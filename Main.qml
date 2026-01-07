@@ -11,57 +11,45 @@ Window {
     Column {
         spacing: 20
         anchors.centerIn: parent
-        width: 640
-
-        Slider {
-            id: mySlider
-            width: parent.width * 0.8
+        ProgressBar {
+            id: myProgressBar
+            width: 300
+            value: 75
             from: 0
-            to: 1000
-            stepSize: 1
-            anchors.centerIn: parent
+            to: 750
 
             onValueChanged: {
-                console.log("Slider value : ", mySlider.value)
+                console.log("ProgressBar value: ", value)
             }
+        }
 
-            background: Rectangle {
-                x: mySlider.leftPadding
-                y: mySlider.topPadding + mySlider.availableHeight / 2 - height / 2
-                implicitWidth: 200
-                implicitHeight: 20
-                width: mySlider.availableWidth
-                height: implicitHeight
-                radius: height / 2
-                color: "#0abeed"
-
-                Rectangle {
-                    width: mySlider.visualPosition == 0 ? 0 : mySlider.handle.x + mySlider.handle.width / 2
-                    height: parent.height
-                    color: "#343434"
-                    radius: height / 2
+        Row {
+            spacing: 20
+            Button {
+                id: myButton_Inc
+                text: "Increase"
+                onClicked: {
+                    if (myProgressBar.value < myProgressBar.to) {
+                        myProgressBar.value += 15
+                    }
                 }
             }
 
-            handle: Rectangle {
-                x: mySlider.leftPadding + mySlider.visualPosition * (mySlider.availableWidth - width)
-                y: mySlider.topPadding + mySlider.availableHeight / 2 - height / 2
-                implicitHeight: 25
-                implicitWidth: 25
-
-                radius: implicitWidth / 2
-                color: mySlider.pressed ? "green" : "white"
-                border.color: red
-                border.width: 2
-
+            Button {
+                id: myButton_Dec
+                text: "Decrease"
+                onClicked: {
+                    if (myProgressBar.value > myProgressBar.from) {
+                        myProgressBar.value -= 15
+                    }
+                }
             }
         }
 
         Text {
             id: myText
-            text: "Slider value : " + mySlider.value
-            anchors.top: mySlider.bottom
-            anchors.horizontalCenter: mySlider.horizontalCenter
+            text: "Progress: " + Math.round((myProgressBar.value * 100) / myProgressBar.to) + " %"
+            font.pixelSize: 15
         }
     }
 }
