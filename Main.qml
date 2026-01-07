@@ -8,48 +8,36 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    Column {
-        spacing: 20
+    Label {
+        id: myLabel
+        font.pixelSize: 22
+        font.bold: true
+        font.italic: false
+        font.family: "verdana"
+
+        text: "My label"
+        width: 300
+        height: 100
+
         anchors.centerIn: parent
-        ProgressBar {
-            id: myProgressBar
-            width: 300
-            value: 75
-            from: 0
-            to: 750
 
-            onValueChanged: {
-                console.log("ProgressBar value: ", value)
-            }
+        verticalAlignment: Qt.AlignVCenter
+        horizontalAlignment: Qt.AlignHCenter
+
+        background: Rectangle {
+            radius: 10
+            border.color: "blue"
+            border.width: 3
         }
 
-        Row {
-            spacing: 20
-            Button {
-                id: myButton_Inc
-                text: "Increase"
-                onClicked: {
-                    if (myProgressBar.value < myProgressBar.to) {
-                        myProgressBar.value += 15
-                    }
-                }
-            }
+        color: myMouseArea.containsMouse ? "red" : "black"
+        scale: myMouseArea.containsMouse ? 1.2 : 1.0
 
-            Button {
-                id: myButton_Dec
-                text: "Decrease"
-                onClicked: {
-                    if (myProgressBar.value > myProgressBar.from) {
-                        myProgressBar.value -= 15
-                    }
-                }
-            }
-        }
-
-        Text {
-            id: myText
-            text: "Progress: " + Math.round((myProgressBar.value * 100) / myProgressBar.to) + " %"
-            font.pixelSize: 15
+        MouseArea {
+            id: myMouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
         }
     }
 }
