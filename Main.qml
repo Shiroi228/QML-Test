@@ -11,38 +11,24 @@ Window {
 
     Button {
         id: myButton
-        anchors.centerIn: parent
-
         text: "Click me"
+        font: myFontDialog.currentFont
         onClicked: {
-            myMessageDialog_Warn.open()
+            myFontDialog.open()
         }
     }
 
-    MessageDialog {
-        id: myMessageDialog_Inf
-        text: "Information dialog"
-        title: "Info"
-
+    FontDialog {
+        id: myFontDialog
         onAccepted: {
-            console.log("Dialog OK")
-        }
-    }
+            console.log("Weight: " + myFontDialog.currentFont.weight)
+            console.log("Is Bold : " +  myFontDialog.currentFont.bold)
+            console.log("Is Italic : " +  myFontDialog.currentFont.italic)
+            console.log("Is Strikeout : " +  myFontDialog.currentFont.strikeout)
+            console.log("Is Underline : " +  myFontDialog.currentFont.underline)
 
-    MessageDialog {
-        id: myMessageDialog_Warn
-        text: "Warning dialog"
-        title: "Warning"
-
-        buttons: MessageDialog.Yes | MessageDialog.No
-
-
-        onAccepted: {
-            console.log("Warning Yes")
-        }
-
-        onRejected:  {
-            console.log("Warning No")
+            console.log("Family: " + myFontDialog.currentFont.family)
+            console.log("Font size: " + myFontDialog.currentFont.pointSize)
         }
     }
 
