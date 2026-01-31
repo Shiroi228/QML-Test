@@ -9,28 +9,26 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    Button {
-        id: myButton
-        text: "Click me"
-        font: myFontDialog.currentFont
-        onClicked: {
-            myFontDialog.open()
-        }
-    }
+    FileDialog {
+        id: myFileDialog
+        nameFilters: ["Image (*.png)"]
 
-    FontDialog {
-        id: myFontDialog
         onAccepted: {
-            console.log("Weight: " + myFontDialog.currentFont.weight)
-            console.log("Is Bold : " +  myFontDialog.currentFont.bold)
-            console.log("Is Italic : " +  myFontDialog.currentFont.italic)
-            console.log("Is Strikeout : " +  myFontDialog.currentFont.strikeout)
-            console.log("Is Underline : " +  myFontDialog.currentFont.underline)
-
-            console.log("Family: " + myFontDialog.currentFont.family)
-            console.log("Font size: " + myFontDialog.currentFont.pointSize)
+            console.log(selectedFile)
         }
     }
 
+    Row {
+        anchors.centerIn: parent
+        Button {
+            id: myButton
+            text: "Click me"
+
+            onClicked: {
+                myFileDialog.open()
+            }
+        }
+
+    }
 
 }
