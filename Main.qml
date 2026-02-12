@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
+import QtQuick.Shapes
 
 Window {
     width: 640
@@ -9,49 +10,53 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    Rectangle {
-        id: myRect_1
-        width: 100
-        height: 100
+    Shape {
+        id: myShape
+        width: parent.width
+        height: parent.height
 
-        color: "red"
+        ShapePath {
+            strokeColor: "blue"
+            strokeWidth: 2
+            fillColor: "red"
 
-        PropertyAnimation on x {
-            from: 0
-            to: width - myRect_1.width
-            duration: 1000
-            easing.type: Easing.InBounce
+            startX: 50; startY: 50
+
+            PathLine  {x: 590; y: 50 }
+            PathLine  {x: 590; y: 430 }
+            PathLine  {x: 50; y: 430 }
+            PathLine  {x: 50; y: 50 }
         }
     }
 
     Rectangle {
-        id: myRect_2
-        width: 100
-        height: 100
+        id: circle
+        width: 20
+        height: 20
+        radius: circle.height / 2
 
         color: "blue"
 
-        PropertyAnimation on y {
-            from: 0
-            to: height - myRect_2.height
-            duration: 1000
-            easing.type: Easing.OutBounce
-        }
+        x: 50; y: 50
     }
 
-    // Rectangle {
-    //     id: myRect_3
-    //     width: 100
-    //     height: 100
+    Path {
+        id: myPath
+        startX: 50; startY: 50
 
-    //     color: "green"
+        PathLine  {x: 590; y: 50 }
+        PathLine  {x: 590; y: 430 }
+        PathLine  {x: 50; y: 430 }
+        PathLine  {x: 50; y: 50 }
+    }
 
-    //     PropertyAnimation on Rotation {
-    //         from: 0
-    //         to: 3600
-    //         duration: 1000
+    PathAnimation {
+        id: myPathAnimation
+        target: circle
+        path: myPath
+        duration: 4000
 
-    //         loops: Animation.Infinite
-    //     }
-    // }
+        loops: Animation.Infinite
+        running: true
+    }
 }
