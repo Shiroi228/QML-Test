@@ -10,53 +10,93 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    Shape {
-        id: myShape
-        width: parent.width
-        height: parent.height
+    // Shape {
+    //     id: myShape
+    //     width: parent.width
+    //     height: parent.height
 
-        ShapePath {
-            strokeColor: "blue"
-            strokeWidth: 2
-            fillColor: "red"
+    //     ShapePath {
+    //         strokeColor: "blue"
+    //         strokeWidth: 2
+    //         fillColor: "red"
 
-            startX: 50; startY: 50
+    //         startX: 50; startY: 50
 
-            PathLine  {x: 590; y: 50 }
-            PathLine  {x: 590; y: 430 }
-            PathLine  {x: 50; y: 430 }
-            PathLine  {x: 50; y: 50 }
+    //         PathLine  {x: 590; y: 50 }
+    //         PathLine  {x: 590; y: 430 }
+    //         PathLine  {x: 50; y: 430 }
+    //         PathLine  {x: 50; y: 50 }
+    //     }
+    // }
+
+    Rectangle {
+        id: myRect
+        width: 200
+        height: 200
+
+        color: "red"
+    }
+
+    SequentialAnimation {
+        id: mySequentialAnimation
+        running: true
+        loops: Animation.Infinite
+
+        NumberAnimation {
+            target: myRect
+            property: "width"
+            from: 200
+            to: 300
+            duration: 2000
+            easing.type: Easing.InOutQuad
+        }
+
+        NumberAnimation {
+            target: myRect
+            property: "height"
+            from: 200
+            to: 300
+            duration: 2000
+            easing.type: Easing.InOutQuad
+        }
+
+        NumberAnimation {
+            target: myRect
+            property: "width"
+            from: 300
+            to: 200
+            duration: 2000
+            easing.type: Easing.InOutQuad
+        }
+
+        NumberAnimation {
+            target: myRect
+            property: "height"
+            from: 300
+            to: 200
+            duration: 2000
+            easing.type: Easing.InOutQuad
         }
     }
 
-    Rectangle {
-        id: circle
-        width: 20
-        height: 20
-        radius: circle.height / 2
 
-        color: "blue"
+    // Path {
+    //     id: myPath
+    //     startX: 50; startY: 50
 
-        x: 50; y: 50
-    }
+    //     PathLine  {x: 590; y: 50 }
+    //     PathLine  {x: 590; y: 430 }
+    //     PathLine  {x: 50; y: 430 }
+    //     PathLine  {x: 50; y: 50 }
+    // }
 
-    Path {
-        id: myPath
-        startX: 50; startY: 50
+    // PathAnimation {
+    //     id: myPathAnimation
+    //     target: circle
+    //     path: myPath
+    //     duration: 4000
 
-        PathLine  {x: 590; y: 50 }
-        PathLine  {x: 590; y: 430 }
-        PathLine  {x: 50; y: 430 }
-        PathLine  {x: 50; y: 50 }
-    }
-
-    PathAnimation {
-        id: myPathAnimation
-        target: circle
-        path: myPath
-        duration: 4000
-
-        loops: Animation.Infinite
-        running: true
-    }
+    //     loops: Animation.Infinite
+    //     running: true
+    // }
 }
